@@ -6,9 +6,11 @@ import java.util.Arrays;
 public class Main {
 
     public static void main(String[] args) {
+        new OptionPanel();
         Main game = new Main();
         game.setUpGame();
         game.startPaying();
+
     }
 
     private ArrayList<Ship> shipsList = new ArrayList<>();
