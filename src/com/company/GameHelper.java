@@ -108,7 +108,11 @@ public class GameHelper {
         }
     }
 
-    public void updateOceanMap(){
+    public void updateOceanMap(int userGuess){
+        //convert use guess to coord
+
+        // if userGuess == 0 -> hit "X"
+        // if userGuess < 0 -> miss "o"
         char water = '~';
         char hit = 'X';
         char miss = '0';

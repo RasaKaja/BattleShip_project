@@ -11,7 +11,7 @@ public class Main {
         GameHelper helper = new GameHelper();
         game.setUpGame();
         helper.oceanMap();
-        //game.startPaying();
+        game.startPlaying();
 
     }
 
@@ -59,7 +59,7 @@ public class Main {
     }
 
     // keep asking for user input and checking the guess
-    private void startPaying(){
+    private void startPlaying(){
         while (!shipsList.isEmpty()) { // while ship list is NOT empty
             String userGuess = helper.getUserInput("Enter a guess");
             checkUserGuess(userGuess);
@@ -71,7 +71,6 @@ public class Main {
         numOfGuesses++;
         String result = "miss"; // assume guess as a "miss", unless told otherwise
 
-        //helper.updateOceanMap();
         for (Ship shipToCheck : shipsList) {
             result = shipToCheck.checkYourself(userGuess);
             if (result.equals("hit")){
@@ -85,6 +84,7 @@ public class Main {
             }
         }
         System.out.println(result);
+        //helper.updateOceanMap(userGuess);
     }
 
     private void finishGame(){
