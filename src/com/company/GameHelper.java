@@ -50,7 +50,6 @@ public class GameHelper {
                 } else { // found already used location
                     success = false;
                 }
-                //System.out.println("GameHelper, last position: " + location);
             }
 
         }
@@ -83,5 +82,59 @@ public class GameHelper {
             System.out.println("IOExeption: " + e);
         }
         return input.toLowerCase();
+    }
+
+    public void oceanMap(){
+        char water = '~';
+
+        //first section of the oceanMap (letters)
+        System.out.print(" ");
+        for (int i = 0; i < oceanLength; i++){
+            System.out.print(" " + oceanName.charAt(i));
+        }
+        System.out.println();
+
+        // middle section of the oceanMap
+        int n = 0;
+        for (int i = 0; i < oceanLength; i++){
+            System.out.print(i + "|");
+            for (int j = 0; j < oceanLength; j++){
+                if (ocean[n] == 0){
+                    System.out.print(water + "|");
+                }
+            }
+            n++;
+            System.out.println();
+        }
+    }
+
+    public void updateOceanMap(){
+        char water = '~';
+        char hit = 'X';
+        char miss = '0';
+
+        //first section of the oceanMap (letters)
+        System.out.print(" ");
+        for (int i = 0; i < oceanLength; i++){
+            System.out.print(" " + oceanName.charAt(i));
+        }
+        System.out.println();
+
+        // middle section of the oceanMap
+        for (int i = 0; i < oceanLength; i++){
+            System.out.print(i + "|");
+            for (int j = 0; j < oceanLength; j++){
+
+                if (ocean[j] == 0) {
+                    System.out.print(water + "|");
+                }
+                else if (ocean[j] > 0){
+                    System.out.print(hit + "|");
+                } else {
+                    System.out.print(ocean[j]);
+                }
+            }
+            System.out.println();
+        }
     }
 }

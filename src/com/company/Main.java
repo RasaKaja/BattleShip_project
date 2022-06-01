@@ -8,8 +8,10 @@ public class Main {
     public static void main(String[] args) {
         new OptionPanel();
         Main game = new Main();
+        GameHelper helper = new GameHelper();
         game.setUpGame();
-        game.startPaying();
+        helper.oceanMap();
+        //game.startPaying();
 
     }
 
@@ -51,7 +53,7 @@ public class Main {
             for (Ship shipToSet : shipsList) { // repeat with each ship in the list
                 ArrayList<String> newLocation = helper.placeShip(shSize[x]); // ask helper for a Ship location
                 shipToSet.setLocationCells(newLocation); // call the setter method on this Ship to give it the location which just got from the helper
-                // System.out.println(x + "th ship, size is " + shSize[x] + " cells, location is " + newLocation); //if need to see locations
+                System.out.println(x + "th ship, size is " + shSize[x] + " cells, location is " + newLocation); //if need to see locations
                 x++;
             }
     }
@@ -69,13 +71,16 @@ public class Main {
         numOfGuesses++;
         String result = "miss"; // assume guess as a "miss", unless told otherwise
 
+        //helper.updateOceanMap();
         for (Ship shipToCheck : shipsList) {
             result = shipToCheck.checkYourself(userGuess);
             if (result.equals("hit")){
+                //helper.updateOceanMap();
                 break;
             }
             if (result.equals("kill")){
                 shipsList.remove(shipToCheck); //this ship has been sunk, need to delete of Ships list
+                //helper.updateOceanMap();
                 break;
             }
         }
