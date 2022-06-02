@@ -6,12 +6,11 @@ import java.util.Arrays;
 public class Main {
 
     public static void main(String[] args) {
-        new OptionPanel();
+        //new OptionPanel();
         Main game = new Main();
         GameHelper helper = new GameHelper();
         game.setUpGame();
         game.startPlaying();
-
     }
 
     private ArrayList<Ship> shipsList = new ArrayList<>();
@@ -44,14 +43,15 @@ public class Main {
         shipsList.add(no8);
 
         //instruction for user
-        System.out.println("Your goal is to sink three Ships.");
+        System.out.println("Your goal is to sink nine different size Ships.");
         System.out.println("Try to sink them all in the fewest number of guesses.");
+        System.out.println("Your guess should be letter and number, like 'l2', 'r0' etc.");
 
         int x = 0;
             for (Ship shipToSet : shipsList) { // repeat with each ship in the list
                 ArrayList<String> newLocation = helper.placeShip(shSize[x]); // ask helper for a Ship location
                 shipToSet.setLocationCells(newLocation); // call the setter method on this Ship to give it the location which just got from the helper
-                //System.out.println(x + "th ship, size is " + shSize[x] + " cells, location is " + newLocation); //if need to see locations
+                System.out.println(x + "th ship, size is " + shSize[x] + " cells, location is " + newLocation); //if need to see locations
                 x++;
             }
     }
@@ -59,7 +59,7 @@ public class Main {
     // keep asking for user input and checking the guess
     private void startPlaying(){
         while (!shipsList.isEmpty()) { // while ship list is NOT empty
-            String userGuess = helper.getUserInput("Enter a guess");
+            String userGuess = helper.getUserInput("Enter a guess: ");
             checkUserGuess(userGuess);
         }
         finishGame();
