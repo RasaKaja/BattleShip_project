@@ -1,5 +1,6 @@
 package com.company;
 
+import javax.swing.*;
 import java.util.ArrayList;
 
 public class Ship {
@@ -22,10 +23,16 @@ public class Ship {
             if (locationCells.isEmpty()){ // checking if all the locations have been guessed
                 result = "kill";
                 System.out.println("You sunk the Ship!");
+                //sunkMessage();
             } else {
                 result = "hit";
             }
         }
         return result;
+    }
+
+    public void sunkMessage(){
+        JFrame f = new JFrame();
+        JOptionPane.showMessageDialog(f,"Good job!!! \nYou sunk a ship!");
     }
 }

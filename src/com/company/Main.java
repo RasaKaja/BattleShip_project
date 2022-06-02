@@ -10,7 +10,6 @@ public class Main {
         Main game = new Main();
         GameHelper helper = new GameHelper();
         game.setUpGame();
-        helper.oceanMap();
         game.startPlaying();
 
     }
@@ -22,7 +21,6 @@ public class Main {
     private void setUpGame() {
         // make some Ships and give them locations
         int[] shSize = {5, 4, 4, 3, 3, 3, 2, 2, 2}; //new
-
 
         Ship no0 = new Ship();
         Ship no1 = new Ship();
@@ -53,7 +51,7 @@ public class Main {
             for (Ship shipToSet : shipsList) { // repeat with each ship in the list
                 ArrayList<String> newLocation = helper.placeShip(shSize[x]); // ask helper for a Ship location
                 shipToSet.setLocationCells(newLocation); // call the setter method on this Ship to give it the location which just got from the helper
-                System.out.println(x + "th ship, size is " + shSize[x] + " cells, location is " + newLocation); //if need to see locations
+                //System.out.println(x + "th ship, size is " + shSize[x] + " cells, location is " + newLocation); //if need to see locations
                 x++;
             }
     }
@@ -74,22 +72,20 @@ public class Main {
         for (Ship shipToCheck : shipsList) {
             result = shipToCheck.checkYourself(userGuess);
             if (result.equals("hit")){
-                //helper.updateOceanMap();
                 break;
             }
             if (result.equals("kill")){
                 shipsList.remove(shipToCheck); //this ship has been sunk, need to delete of Ships list
-                //helper.updateOceanMap();
                 break;
             }
         }
         System.out.println(result);
-        //helper.updateOceanMap(userGuess);
+        helper.changeOcean(userGuess, result);
     }
 
     private void finishGame(){
         System.out.println("All Ships are dead!");
-        if (numOfGuesses <= 30) {
+        if (numOfGuesses <= 40) {
             System.out.println("it only took you " + numOfGuesses + " guesses.");
         } else {
             System.out.println("Took you long enough. " + numOfGuesses + " guesses.");

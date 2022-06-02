@@ -3,7 +3,9 @@ package com.company;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.sql.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Locale;
 
 public class GameHelper {
@@ -12,6 +14,7 @@ public class GameHelper {
     private int oceanSize = oceanLength*oceanLength;
     private int[] ocean = new int[oceanSize];
     private int shipCount = 0;
+    private int[] updatedOcean = new int[oceanSize];
 
     public ArrayList<String> placeShip(int shipSize){
         ArrayList<String> nameCells = new ArrayList<>(); // holds 's3' type coordinates
@@ -108,14 +111,25 @@ public class GameHelper {
         }
     }
 
-    public void updateOceanMap(int userGuess){
+    public void updateOceanMap(String userGuess, String result){
         //convert use guess to coord
+        userGuess = userGuess;
+        String col = String.valueOf(userGuess.charAt(0)); //getting column
+        String colNo = String.valueOf(oceanName.indexOf(col)); //convert column letter to number
+
+        String row = String.valueOf(userGuess.charAt(1)); //getting row
+
+        String coord = row.concat(colNo); //user Input
+        //System.out.println("GH, 120 line, coord= " + coord);
+
+        result = result;
+        //System.out.println("GH 123 line result = " + result);
 
         // if userGuess == 0 -> hit "X"
         // if userGuess < 0 -> miss "o"
         char water = '~';
         char hit = 'X';
-        char miss = '0';
+        char miss = '.';
 
         //first section of the oceanMap (letters)
         System.out.print(" ");
@@ -125,20 +139,78 @@ public class GameHelper {
         System.out.println();
 
         // middle section of the oceanMap
+        int n = 0; //nth value of the ocean
         for (int i = 0; i < oceanLength; i++){
             System.out.print(i + "|");
-            for (int j = 0; j < oceanLength; j++){
-
-                if (ocean[j] == 0) {
-                    System.out.print(water + "|");
-                }
-                else if (ocean[j] > 0){
-                    System.out.print(hit + "|");
+            for (int j = 0; j < oceanLength; j++) {
+                if (n == Integer.parseInt(coord)) { //if n = user guess
+                    if (result == String.valueOf(hit)) {
+                        //System.out.print(hit + "|");
+                        //updatedOcean[n] = hit;
+                    } else {
+                        //System.out.print(miss + "|");
+                        //updatedOcean[n] = miss;
+                    }
                 } else {
-                    System.out.print(ocean[j]);
+                    //System.out.print(water + "|");
+                    //System.out.print(updatedOcean[n] + "|");
+                    //updatedOcean[n] = water;
                 }
+                n++;
+            }
+            //System.out.println();
+        }
+    }
+
+    public void changeOcean(String userGuess, String result){
+        result = result;
+
+        String col = String.valueOf(userGuess.charAt(0)); //getting column
+        String colNo = String.valueOf(oceanName.indexOf(col)); //convert column letter to number
+
+        String row = String.valueOf(userGuess.charAt(1)); //getting row
+
+        String coord = row.concat(colNo);
+
+        int n = Integer.parseInt(coord);
+
+
+//        System.out.println("Updating: n="+n+ " " + updatedOcean[n]);
+
+        if (result == "hit"){
+            updatedOcean[n] = Integer.parseInt("1");
+        } else if (result == "kill") {
+            updatedOcean[n] = Integer.parseInt("1");
+        } else {
+            updatedOcean[n] = Integer.parseInt("9");
+        }
+
+//        System.out.println("after update n=" + n + "value is: " + updatedOcean[n]);
+//        System.out.println(Arrays.toString(updatedOcean));
+
+        System.out.print(" ");
+        for (int i = 0; i < oceanLength; i++){
+            System.out.print(" " + oceanName.charAt(i));
+        }
+        System.out.println();
+
+        // middle section of the oceanMap
+        int x = 0;
+        for (int i = 0; i < oceanLength; i++){
+            System.out.print(i + "|");
+            for (int j = 0; j < oceanLength; j++) {
+                if (updatedOcean[x] == 1) {
+                    System.out.print("X" + "|");
+                } else if (updatedOcean[x] == 9) {
+                    System.out.print("." + "|");
+                } else {
+                    System.out.print("~" + "|");
+                }
+                x++;
             }
             System.out.println();
         }
-    }
+   }
+
 }
+
