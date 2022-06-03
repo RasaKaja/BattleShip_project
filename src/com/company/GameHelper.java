@@ -58,40 +58,30 @@ public class GameHelper {
                 } else { // found already used location
                     success = false;
                 }
-
             }
-
         }
 
+        // booking "safe" locations around the ship
         int lastPos = location-incr;
         int afterLast = location;
         int firsPos = lastPos - (shipSize*incr) + incr;
         int beforeFirst = firsPos - incr;
-//        System.out.println("gh, before FIRS: " + beforeFirst);
-//        System.out.println("GH, first poss: " + firsPos);
-//        System.out.println("GH, lastPosition: " + lastPos);
-//        System.out.println("GH, AFTER last: " + afterLast);
 
+        // in front and at the end of ship
         if ((afterLast < oceanSize) & (beforeFirst > 0)) {
             ocean[afterLast] = 1;
             ocean[beforeFirst] = 1;
-            //System.out.println("78 line: After last["+ afterLast + "] value is " + ocean[afterLast]);
-            //System.out.println("79 line: Before First["+ beforeFirst + "] value is " + ocean[beforeFirst]);
         } else if ((beforeFirst > 0) && (afterLast > oceanSize)){
                 ocean[beforeFirst] = 1;
-                //System.out.println("82 line: Before First["+ beforeFirst + "] value is "+ ocean[beforeFirst]);
             } else {
             ocean[afterLast] = 1;
-            //System.out.println("85 line: After last["+ afterLast + "] value is " + ocean[afterLast]);
         }
 
+        // from one side and another side of the ship
         int currFirst = firsPos;
         for (int i = 0; i< shipSize; i++){
-            if (((currFirst + incrR) < oceanSize) && ((currFirst + incrR) % oceanLength !=0)){
-//                System.out.println("First pos= " + firsPos);
-//                System.out.println("firs+incR = " + (firsPos+incrR));
+            if (((currFirst + incrR) < oceanSize) && ((currFirst + incrR) > 0) && ((currFirst + incrR) % oceanLength !=0)){
                 ocean[currFirst+incrR] = 1;
-                //System.out.println("Value [" + (currFirst+incrR) + "] = " + ocean[currFirst+incrR]);
             }
             currFirst = currFirst + incr;
         }
@@ -99,13 +89,12 @@ public class GameHelper {
         for (int i = 0; i < shipSize; i++){
             if (((firsPos - incrR) > 0) && ((firsPos - incrR) < oceanSize)) {
                 ocean[firsPos-incrR] = 1;
-                //System.out.println("Value [" + (firsPos-incrR) + "] = " + ocean[firsPos-incrR]);
             }
             firsPos = firsPos+incr;
         }
 
-
-        int n = 0; //turn location into alpha coords
+        //turn location into alpha coords
+        int n = 0;
         int row = 0;
         int column = 0;
 
@@ -134,49 +123,8 @@ public class GameHelper {
         return input.toLowerCase();
     }
 
-    public void oceanMap(){
-        char water = '~';
-
-        //first section of the oceanMap (letters)
-        System.out.print(" ");
-        for (int i = 0; i < oceanLength; i++){
-            System.out.print(" " + oceanName.charAt(i));
-        }
-        System.out.println();
-
-        // middle section of the oceanMap
-        int n = 0;
-        for (int i = 0; i < oceanLength; i++){
-            System.out.print(i + "|");
-            for (int j = 0; j < oceanLength; j++){
-                if (ocean[n] == 0){
-                    System.out.print(water + "|");
-                }
-            }
-            n++;
-            System.out.println();
-        }
-    }
-
-//    public void updateOceanMap(String userGuess, String result){
-//        //convert use guess to coord
-//        userGuess = userGuess;
-//        String col = String.valueOf(userGuess.charAt(0)); //getting column
-//        String colNo = String.valueOf(oceanName.indexOf(col)); //convert column letter to number
-//
-//        String row = String.valueOf(userGuess.charAt(1)); //getting row
-//
-//        String coord = row.concat(colNo); //user Input
-//        //System.out.println("GH, 120 line, coord= " + coord);
-//
-//        result = result;
-//        //System.out.println("GH 123 line result = " + result);
-//
-//        // if userGuess == 0 -> hit "X"
-//        // if userGuess < 0 -> miss "o"
+//    public void oceanMap(){
 //        char water = '~';
-//        char hit = 'X';
-//        char miss = '.';
 //
 //        //first section of the oceanMap (letters)
 //        System.out.print(" ");
@@ -186,26 +134,16 @@ public class GameHelper {
 //        System.out.println();
 //
 //        // middle section of the oceanMap
-//        int n = 0; //nth value of the ocean
+//        int n = 0;
 //        for (int i = 0; i < oceanLength; i++){
 //            System.out.print(i + "|");
-//            for (int j = 0; j < oceanLength; j++) {
-//                if (n == Integer.parseInt(coord)) { //if n = user guess
-//                    if (result == String.valueOf(hit)) {
-//                        //System.out.print(hit + "|");
-//                        //updatedOcean[n] = hit;
-//                    } else {
-//                        //System.out.print(miss + "|");
-//                        //updatedOcean[n] = miss;
-//                    }
-//                } else {
-//                    //System.out.print(water + "|");
-//                    //System.out.print(updatedOcean[n] + "|");
-//                    //updatedOcean[n] = water;
+//            for (int j = 0; j < oceanLength; j++){
+//                if (ocean[n] == 0){
+//                    System.out.print(water + "|");
 //                }
-//                n++;
 //            }
-//            //System.out.println();
+//            n++;
+//            System.out.println();
 //        }
 //    }
 
@@ -261,5 +199,13 @@ public class GameHelper {
         System.out.println();
    }
 
+    public void clearScreen() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+    }
+
+//    public void clearScreen(){
+//        System.out.print("\u000C");
+//    }
 }
 
