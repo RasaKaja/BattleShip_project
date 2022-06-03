@@ -19,8 +19,8 @@ public class Ship {
 
             if (locationCells.isEmpty()){ // checking if all the locations have been guessed
                 result = "kill";
-                System.out.println("You sunk the Ship!");
-                //sunkMessage();
+                //System.out.println("You sunk the Ship!");
+                sunkMessage();
             } else {
                 result = "hit";
             }
@@ -29,7 +29,10 @@ public class Ship {
     }
 
     public void sunkMessage(){
-        JFrame f = new JFrame();
+        JFrame f;
+        f = new JFrame();
         JOptionPane.showMessageDialog(f,"Good job!!! \nYou sunk a ship!");
     }
 }
+
+

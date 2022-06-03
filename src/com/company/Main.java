@@ -1,5 +1,6 @@
 package com.company;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -68,6 +69,7 @@ public class Main {
     // keep asking for user input and checking the guess
     private void startPlaying(){
         while (!shipsList.isEmpty()) { // while ship list is NOT empty
+            //helper.clearScreenBefore();
             String userGuess = helper.getUserInput("Enter a guess: ");
             checkUserGuess(userGuess);
         }
@@ -92,17 +94,27 @@ public class Main {
                 break;
             }
         }
-        //helper.clearScreen();
         System.out.println(result);
         helper.changeOcean(userGuess, result);
+        helper.clearScreenAfter();
     }
 
     private void finishGame(){
-        System.out.println("All Ships are dead!");
-        if (numOfGuesses <= 40) {
-            System.out.println("it only took you " + numOfGuesses + " guesses.");
-        } else {
-            System.out.println("Took you long enough. " + numOfGuesses + " guesses.");
-        }
+//        System.out.println("All Ships are dead!");
+        finishMessage();
+//        if (numOfGuesses <= 40) {
+//            System.out.println("it only took you " + numOfGuesses + " guesses.");
+//        } else {
+//            System.out.println("Took you long enough. " + numOfGuesses + " guesses.");
+//        }
+    }
+
+    public void finishMessage(){
+        JFrame f;
+        f = new JFrame();
+        JOptionPane.showMessageDialog(f, """
+                        Good job - ALL SHIPS ARE SUNK.
+                        The number of shots you did is 
+                        """ + numOfGuesses);
     }
 }

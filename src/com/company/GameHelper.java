@@ -1,5 +1,6 @@
 package com.company;
 
+import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -162,6 +163,7 @@ public class GameHelper {
             updatedOcean[n] = Integer.parseInt("1");
         } else if (result == "kill") {
             updatedOcean[n] = Integer.parseInt("1");
+
         } else {
             updatedOcean[n] = Integer.parseInt("9");
         }
@@ -199,13 +201,22 @@ public class GameHelper {
         System.out.println();
    }
 
-    public void clearScreen() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-    }
+//    public void clearScreen() {
+//        System.out.print("\033[H\033[2J");
+//        System.out.flush();
+//    }
 
 //    public void clearScreen(){
 //        System.out.print("\u000C");
 //    }
+
+    public void clearScreenBefore() {
+        for (int i = 0; i < 5; ++i) System.out.println();
+    }
+
+    public void clearScreenAfter() {
+        for (int i = 0; i < 8; ++i) System.out.println();
+    }
+
 }
 
