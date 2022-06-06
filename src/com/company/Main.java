@@ -7,9 +7,9 @@ import java.util.Arrays;
 public class Main {
 
     public static void main(String[] args) {
-        new OptionPanel();
+        new OptionPanel(); //welcome message and gives an instruction of the game
         Main game = new Main();
-        GameHelper helper = new GameHelper();
+        //GameHelper helper = new GameHelper();
         game.setUpGame();
         game.startPlaying();
     }
@@ -17,19 +17,11 @@ public class Main {
     private ArrayList<Ship> shipsList = new ArrayList<>();
     private GameHelper helper = new GameHelper();
     private int numOfGuesses = 0;
-    //private int numOfShips = 9;
     private int countKill = 0;
 
     private void setUpGame() {
         // make some Ships and give them locations
         int[] shSize = {5, 4, 4, 3, 3, 3, 2, 2, 2}; //new
-
-
-//        for (int i = 0; i < shSize.length; i++){
-//            Ship i = new Ship();
-//            //Ship no[i] = new Ship();
-//            shipsList.add(i);
-//        }
 
         Ship no0 = new Ship();
         Ship no1 = new Ship();
@@ -52,16 +44,11 @@ public class Main {
         shipsList.add(no7);
         shipsList.add(no8);
 
-        //instruction for user
-//        System.out.println("Your goal is to sink nine different size Ships.");
-//        System.out.println("Try to sink them all in the fewest number of guesses.");
-//        System.out.println("Your guess should be letter and number, like 'k2', 's5' etc.");
-
         int x = 0;
             for (Ship shipToSet : shipsList) { // repeat with each ship in the list
                 ArrayList<String> newLocation = helper.placeShip(shSize[x]); // ask helper for a Ship location
                 shipToSet.setLocationCells(newLocation); // call the setter method on this Ship to give it the location which just got from the helper
-                //System.out.println(x + "th ship, size is " + shSize[x] + " cells, location is " + newLocation); //if need to see locations
+                //System.out.println(x + "th ship, size is " + shSize[x] + " cells, location is " + newLocation); //if need to see ship locations
                 x++;
             }
     }
@@ -69,9 +56,12 @@ public class Main {
     // keep asking for user input and checking the guess
     private void startPlaying(){
         while (!shipsList.isEmpty()) { // while ship list is NOT empty
-            //helper.clearScreenBefore();
-            String userGuess = helper.getUserInput("Enter a guess: ");
-            checkUserGuess(userGuess);
+        try {
+                String userGuess = helper.getUserInput("Enter a guess: ");
+                checkUserGuess(userGuess);
+            } catch(NumberFormatException e){
+                System.out.println("You entered invalid coordinate! please re-enter.");
+            }
         }
         finishGame();
     }
@@ -100,13 +90,7 @@ public class Main {
     }
 
     private void finishGame(){
-//        System.out.println("All Ships are dead!");
         finishMessage();
-//        if (numOfGuesses <= 40) {
-//            System.out.println("it only took you " + numOfGuesses + " guesses.");
-//        } else {
-//            System.out.println("Took you long enough. " + numOfGuesses + " guesses.");
-//        }
     }
 
     public void finishMessage(){

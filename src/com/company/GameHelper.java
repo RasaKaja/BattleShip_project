@@ -116,37 +116,15 @@ public class GameHelper {
         try {
             BufferedReader is = new BufferedReader(new InputStreamReader(System.in));
             input = is.readLine();
-            if (input.length() == 0 ) return null;
+            if (input.length() == 0 ) {
+                return null;
+            }
         } catch (IOException e) {
             //System.out.println("IOExeption: " + e);
-            System.out.println("Please put valid guess.");
+            //System.out.println("Please put valid guess.");
         }
         return input.toLowerCase();
     }
-
-//    public void oceanMap(){
-//        char water = '~';
-//
-//        //first section of the oceanMap (letters)
-//        System.out.print(" ");
-//        for (int i = 0; i < oceanLength; i++){
-//            System.out.print(" " + oceanName.charAt(i));
-//        }
-//        System.out.println();
-//
-//        // middle section of the oceanMap
-//        int n = 0;
-//        for (int i = 0; i < oceanLength; i++){
-//            System.out.print(i + "|");
-//            for (int j = 0; j < oceanLength; j++){
-//                if (ocean[n] == 0){
-//                    System.out.print(water + "|");
-//                }
-//            }
-//            n++;
-//            System.out.println();
-//        }
-//    }
 
     public void changeOcean(String userGuess, String result){
         result = result;
@@ -201,21 +179,8 @@ public class GameHelper {
         System.out.println();
    }
 
-//    public void clearScreen() {
-//        System.out.print("\033[H\033[2J");
-//        System.out.flush();
-//    }
-
-//    public void clearScreen(){
-//        System.out.print("\u000C");
-//    }
-
-    public void clearScreenBefore() {
-        for (int i = 0; i < 5; ++i) System.out.println();
-    }
-
     public void clearScreenAfter() {
-        for (int i = 0; i < 8; ++i) System.out.println();
+        for (int i = 0; i < 7; ++i) System.out.println();
     }
 
 }
